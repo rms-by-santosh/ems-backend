@@ -11,7 +11,7 @@ const router = express.Router();
 // If you do NOT want public registration, you can REMOVE or comment this line:
 // router.post('/register', register);
 
-router.post('/login', login);
+router.post('/users/login', login);
 
 // Get all users (admin only)
 router.get('/', protect, authorizeRoles('admin'), getUsers);
