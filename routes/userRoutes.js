@@ -1,34 +1,41 @@
 import express from 'express';
 import {
-  register, login, getUsers, getProfile, updateUser,
-  createUser, updateUserById, deleteUser
+  register,
+  login,
+  getUsers,
+  getProfile,
+  updateUser,
+  createUser,
+  updateUserById,
+  deleteUser
 } from '../controllers/userController.js';
 import { protect } from '../middleware/auth.js';
 import { authorizeRoles } from '../middleware/role.js';
 
 const router = express.Router();
 
-// If you do NOT want public registration, you can REMOVE or comment this line:
+// ❗ Optional: enable registration if needed
 // router.post('/register', register);
 
-router.post('/users/login', login);
+// ✅ Login Route (public)
+router.post('/login', login);
 
-// Get all users (admin only)
+// ✅ Get all users (admin only)
 router.get('/', protect, authorizeRoles('admin'), getUsers);
 
-// ADD USER (admin only)
+// ✅ Create user (admin only)
 router.post('/', protect, authorizeRoles('admin'), createUser);
 
-// Edit user (admin only)
+// ✅ Update user by ID (admin only)
 router.put('/:id', protect, authorizeRoles('admin'), updateUserById);
 
-// Delete user (admin only)
+// ✅ Delete user by ID (admin only)
 router.delete('/:id', protect, authorizeRoles('admin'), deleteUser);
 
-// Get current user profile
+// ✅ Get current user profile
 router.get('/me', protect, getProfile);
 
-// Update current user profile (self)
+// ✅ Update current user profile
 router.put('/me', protect, updateUser);
 
 export default router;
