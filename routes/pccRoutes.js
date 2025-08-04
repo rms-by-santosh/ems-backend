@@ -1,14 +1,19 @@
 import express from 'express';
 import {
-  getPCCRecords, addPCCRecord, editPCCRecord, deletePCCRecord
+  getPCCRecords,
+  getSinglePCCRecord,
+  addPCCRecord,
+  editPCCRecord,
+  deletePCCRecord
 } from '../controllers/pccController.js';
 import { protect } from '../middleware/auth.js';
 
 const router = express.Router();
 
-router.get('/', protect, getPCCRecords);
-router.post('/', protect, addPCCRecord);
-router.put('/:id', protect, editPCCRecord);
-router.delete('/:id', protect, deletePCCRecord);
+router.get('/', protect, getPCCRecords);           // Get all PCCs
+router.post('/', protect, addPCCRecord);           // Add PCC
+router.get('/:id', protect, getSinglePCCRecord);   // Get single PCC
+router.put('/:id', protect, editPCCRecord);        // Edit PCC
+router.delete('/:id', protect, deletePCCRecord);   // Delete PCC
 
 export default router;
