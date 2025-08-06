@@ -3,10 +3,15 @@ import { Applicant } from '../models/Applicant.js';
 import { User } from '../models/User.js';
 import { sendPaymentEmail } from '../utils/sendPaymentEmail.js';
 
-// Get all payments with applicant populated
+// Get all payments with applicant populated and support applicant filtering
 export const getPayments = async (req, res, next) => {
   try {
-    const payments = await Payment.find().populate('applicant');
+    // NEW: filter payments by applicant if query param exists
+    const filter = {};
+    if (req.query.applicant) {
+      filter.applicant = req.query.applicant;
+    }
+    const payments = await Payment.find(filter).populate('applicant');
     res.json(payments);
   } catch (err) {
     next(err);
