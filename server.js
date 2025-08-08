@@ -18,7 +18,7 @@ import pccRoutes from './routes/pccRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import activityRoutes from './routes/activity.js';
-
+import publicRoutes from "./routes/publicRoutes.js";
 
 dotenv.config();
 const app = express();
@@ -40,7 +40,7 @@ app.use('/api/pcc', pccRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/activity', activityRoutes);
-
+app.use("/api/public", publicRoutes); 
 
 // Error handler
 app.use(errorHandler);
